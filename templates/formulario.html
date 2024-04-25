@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Reembolso</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="card-title">Formulário de Reembolso</h5>
+            </div>
+            <div class="card-body">
+                <form action="/" method="POST">
+                    <!-- Dados Pessoais -->
+                    <h6 class="card-subtitle mb-2 text-muted">Dados Pessoais</h6>
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone" required>
+                    </div>
+                    <!-- Mais campos de dados pessoais -->
+    
+                    <!-- Seleção de Serviço -->
+                    <hr>
+                    <h6 class="card-subtitle mb-2 text-muted">Seleção de Serviço</h6>
+                    <div class="mb-3">
+                        <label for="servico" class="form-label">Serviço</label>
+                        <select class="form-select" id="servico" name="servico" required>
+                            <option value="">Selecione o serviço</option>
+                            <option value="assistencia">Assistência/TSI</option>
+                            <option value="cultura">Cultura</option>
+                            <option value="turismo">Turismo</option>
+                            <!-- Adicione mais opções de serviço aqui -->
+                        </select>
+                    </div>
+    
+                    <!-- Campos adicionais com base na seleção de serviço -->
+                    <div id="detalhes-servico"></div>
+                    <div id="formas-pagamento"></div>
+    
+                    <!-- Termos de Aceite -->
+                    <hr>
+                    <h6 class="card-subtitle mb-2 text-muted">Termos de Aceite</h6>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="termos_reembolso" required>
+                        <label class="form-check-label" for="termos_reembolso">Estou ciente que as solicitações de Reembolso enviados através deste link passarão por análise e que sua aprovação está condicionada aos critérios estabelecidos em contratos e políticas internas. <strong> Prazo de resposta de até 15 dias úteis</strong>, podendo ser prorrogado.</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="termos_lgpd" required>
+                        <label class="form-check-label" for="termos_lgpd">Em observância à Lei n°. 13.709/18 - Lei Geral de Proteção de Dados Pessoais e seus dispositivos aplicáveis, manifesto de forma expressa, livre e consciente, no sentido de autorizar o SESC/DR/RR a realizar o tratamento dos meus dados pessoais, estando ciente do compromisso assumido pelo SESC/DR/RR de tratar os Dados Pessoais de forma sigilosa e confidencial, mantendo-os em ambiente seguro e não utilizando-os para qualquer fim que não seja a minha solicitação.</label>
+                    </div>
+                    <!-- Captcha -->
+                    <div class="mb-3">
+                        <div class="g-recaptcha" data-sitekey="6LfJdUEaAAAAAOdZZdrMcPETDzgzxRP7Fe0hI__D"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript (opcional, para interações dinâmicas) -->
+    <!-- JavaScript (opcional, para interações dinâmicas) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const servicoSelect = document.getElementById('servico');
+            const detalhesServicoDiv = document.getElementById('detalhes-servico');
+            const formasPagamentoDiv = document.getElementById('formas-pagamento');
+    
+            servicoSelect.addEventListener('change', function() {
+                const servicoSelecionado = servicoSelect.value;
+    
+                // Limpa os campos de detalhes do serviço e de formas de pagamento antes de adicionar novos campos
+                detalhesServicoDiv.innerHTML = '';
+                formasPagamentoDiv.innerHTML = '';
+    
+                // Adicione lógica para mostrar campos adicionais com base na seleção de serviço
+                if (servicoSelecionado === 'assistencia' || servicoSelecionado === 'cultura') {
+                    // Exibir campos adicionais para Assistência/TSI ou Cultura
+                    detalhesServicoDiv.innerHTML = `
+                        <div class="mb-3">
+                            <label for="atividade" class="form-label">Para qual atividade/serviço?</label>
+                            <input type="text" class="form-control" id="atividade" name="atividade" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="motivo" class="form-label">Motivo da solicitação de Reembolso?</label>
+                            <textarea class="form-control" id="motivo" name="motivo" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="titular-ou-dependente" class="form-label">A solicitação de reembolso é para o: titular ou dependente</label>
+                            <select class="form-select" id="titular-ou-dependente">
+                                <option selected disabled>Selecione uma opção</option>
+                                <option value="titular">Titular</option>
+                                <option value="dependente">Dependente</option>
+                            </select>
+                        </div>
+                    `;
+    
+                    // Adicionar listbox com as opções de pagamento
+                    adicionarListboxFormasPagamento();
+                } else if (servicoSelecionado === 'turismo') {
+                    // Exibir campos adicionais para Turismo
+                    detalhesServicoDiv.innerHTML = `
+                        <div class="mb-3">
+                            <label for="numero-reserva" class="form-label">Nº da Reserva</label>
+                            <input type="text" class="form-control" id="numero-reserva" name="numero-reserva" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="motivo-turismo" class="form-label">Motivo da solicitação de Reembolso?</label>
+                            <textarea class="form-control" id="motivo-turismo" name="motivo-turismo" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="upload-comprovante" class="form-label">Upload do Comprovante</label>
+                            <input type="file" class="form-control" id="upload-comprovante" name="upload-comprovante" accept=".pdf,.jpg,.png" required>
+                        </div>
+                    `;
+    
+                    // Adicionar listbox com as opções de pagamento
+                    adicionarListboxFormasPagamento();
+                }
+            });
+    
+            // Função para adicionar listbox com as opções de pagamento
+            function adicionarListboxFormasPagamento() {
+                formasPagamentoDiv.innerHTML = `
+                    <hr>
+                    <div class="mb-3">
+                        <label for="forma-pagamento" class="form-label">Forma de Reembolso</label>
+                        <select class="form-select" id="forma-pagamento" name="forma-pagamento" required>
+                            <option value="">Selecione a forma de reembolso</option>
+                            <option value="credencial">Reembolso em Credencial</option>
+                            <option value="conta-bancaria">Conta Bancária</option>
+                        </select>
+                    </div>
+                `;
+    
+                const formaPagamentoSelect = document.getElementById('forma-pagamento');
+                formaPagamentoSelect.addEventListener('change', function() {
+                    const formaSelecionada = formaPagamentoSelect.value;
+    
+                    // Adicione lógica para mostrar campos adicionais com base na forma de pagamento selecionada
+                    if (formaSelecionada === 'credencial') {
+                        // Exibir campos adicionais para Reembolso em Credencial
+                        formasPagamentoDiv.innerHTML += `
+                            <div class="mb-3">
+                                <label for="numero-credencial" class="form-label">Número da Credencial</label>
+                                <input type="text" class="form-control" id="numero-credencial" name="numero-credencial" required>
+                            </div>
+                        `;
+                    } else if (formaSelecionada === 'conta-bancaria') {
+                        // Exibir campos adicionais para Conta Bancária
+                        formasPagamentoDiv.innerHTML += `
+                            <div class="mb-3">
+                                <label for="nome-banco" class="form-label">Nome do Banco</label>
+                                <input type="text" class="form-control" id="nome-banco" name="nome-banco" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="agencia" class="form-label">Número da Agência</label>
+                                <input type="text" class="form-control" id="agencia" name="agencia" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="conta-corrente" class="form-label">Número da Conta Corrente</label>
+                                <input type="text" class="form-control" id="conta-corrente" name="conta-corrente" required>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            // Chamar a função para adicionar campos de pagamento quando a página é carregada
+            adicionarListboxFormasPagamento();
+        });
+    </script>   
+</body>

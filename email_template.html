@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="card-title">Solicitação Recebida</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Olá {{ nome }},</p>
+                <p class="card-text">Sua solicitação foi recebida com sucesso. Abaixo estão os detalhes:</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Nome: {{ nome }}</li>
+                    <li class="list-group-item">Número de Protocolo: {{ protocolo }}</li>
+                    <!-- Adicione aqui os campos adicionais do formulário -->
+                    {% for key, value in form_data.items() %}
+                        <li class="list-group-item">{{ key.capitalize() }}: {{ value }}</li>
+                    {% endfor %}
+                </ul>
+                <p class="card-text">Entraremos em contato em breve.</p>
+                <p class="card-text">Atenciosamente,<br>Sua Empresa</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
