@@ -2,19 +2,15 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from config import EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASSWORD
+from jinja2 import Template  # Importe o Template do Jinja2
 
-def send_email(nome, protocolo, remetente, form_data):
+def send_email(nome, protocolo, remetente, form_data):  # Adicione form_data como um parâmetro
     # Carrega o conteúdo do arquivo HTML
     with open('email_template.html', 'r', encoding='utf-8') as file:
-        body = file.read()
+        template = Template(file.read())  # Carrega o template do Jinja2
 
     # Preenche os espaços reservados com os dados fornecidos
-    body = body.replace('{{ nome }}', nome)
-    body = body.replace('{{ protocolo }}', protocolo)
-
-    # Adiciona os dados do formulário ao corpo do e-mail
-    for key, value in form_data.items():
-        body = body.replace('{{ ' + key + ' }}', value)
+    body = template.render(nome=nome, protocolo=protocolo, form_data=form_data)  # Renderiza o template com os dados
 
     # Configuração da mensagem de e-mail
     msg = MIMEMultipart()
