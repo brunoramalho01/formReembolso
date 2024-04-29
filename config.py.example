@@ -1,6 +1,6 @@
 # Configurações de Servidor SMTP do Outlook com autenticações do SESC RR
 
-EMAIL_HOST = 'smtp.office365.com'
-EMAIL_PORT = 587
-EMAIL_USER = 'bsantos@sescrr.com.br'
-EMAIL_PASSWORD = 'sescrr003057@'
+EMAIL_HOST = #endereço server SMTP
+EMAIL_PORT = #numero da porta
+EMAIL_USER = #email de autenticacao
+EMAIL_PASSWORD = #senha do email

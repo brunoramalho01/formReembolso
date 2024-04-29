@@ -15,9 +15,9 @@ def send_email(nome, protocolo, remetente, form_data):  # Adicione form_data com
     # Configuração da mensagem de e-mail
     msg = MIMEMultipart()
     msg['From'] = EMAIL_USER
-    msg['To'] = 'bsantos@sescrr.com.br'  # Email do destinatário
+    msg['To'] = 'crc@sescrr.com.br'  # Email do destinatário
     msg['Cc'] = remetente  # Cópia para o remetente
-    msg['Subject'] = 'Nova Solicitação de ' + nome + 'Protocolo Nº: ' + protocolo
+    msg['Subject'] = 'Nova Solicitação de ' + nome + ' | Protocolo Nº: ' + protocolo
 
     # Anexa o corpo do e-mail à mensagem
     msg.attach(MIMEText(body, 'html'))
@@ -29,5 +29,5 @@ def send_email(nome, protocolo, remetente, form_data):  # Adicione form_data com
 
     # Envio do e-mail
     text = msg.as_string()
-    server.sendmail(EMAIL_USER, ['bsantos@sescrr.com.br', remetente], text)  # Adiciona o remetente na lista de destinatários
+    server.sendmail(EMAIL_USER, ['naoresponder@sescrr.com.br', remetente], text)  # Adiciona o remetente na lista de destinatários
     server.quit()
