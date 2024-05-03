@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Solicitação de Reembolso</title>
 </head>
 <body>
     <div class="container">
@@ -12,10 +12,8 @@
                 <h5 class="card-title">Solicitação Recebida</h5>
             </div>
             <div class="card-body">
-                <p class="card-text">Olá {{ nome }},</p>
                 <p class="card-text">Sua solicitação foi recebida com sucesso. Abaixo estão os detalhes:</p>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Nome: {{ nome }}</li>
                     <li class="list-group-item">Número de Protocolo: {{ protocolo }}</li>
                     <!-- Adicione aqui os campos adicionais do formulário -->
                     {% for key, value in form_data.items() %}

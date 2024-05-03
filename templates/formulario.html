@@ -8,14 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <div class="card mt-3">
-            <div class="card-header">
-                <h5 class="card-title">Formulário de Reembolso</h5>
+        <div class="card mt-3 shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h5 class="card-title ">Formulário de Reembolso</h5>
             </div>
             <div class="card-body">
                 <form action="/" method="POST">
                     <!-- Dados Pessoais -->
-                    <h6 class="card-subtitle mb-2 text-muted">Dados Pessoais</h6>
+                    <h6 class="card-subtitle mb-2 text-danger">Dados Pessoais</h6>
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nome" name="nome" required>
@@ -36,13 +36,16 @@
     
                     <!-- Seleção de Serviço -->
                     <hr>
-                    <h6 class="card-subtitle mb-2 text-muted">Seleção de Serviço</h6>
+                    <h6 class="card-subtitle mb-2 text-danger">Seleção de Serviço</h6>
                     <div class="mb-3">
                         <label for="servico" class="form-label">Serviço</label>
                         <select class="form-select" id="servico" name="servico" required>
                             <option value="">Selecione o serviço</option>
                             <option value="assistencia">Assistência/TSI</option>
                             <option value="cultura">Cultura</option>
+                            <option value="educacao">Educação</option>
+                            <option value="esporte">Esporte e Lazer</option>
+                            <option value="saude">Saúde</option>
                             <option value="turismo">Turismo</option>
                             <!-- Adicione mais opções de serviço aqui -->
                         </select>
@@ -54,13 +57,13 @@
     
                     <!-- Termos de Aceite -->
                     <hr>
-                    <h6 class="card-subtitle mb-2 text-muted">Termos de Aceite</h6>
+                    <h6 class="card-subtitle mb-2 text-danger">Termos de Aceite</h6>
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="termos_reembolso" required>
+                        <input type="checkbox" class="form-check-input" id="termos_reembolso" name="termos_reembolso" required>
                         <label class="form-check-label" for="termos_reembolso">Estou ciente que as solicitações de Reembolso enviados através deste link passarão por análise e que sua aprovação está condicionada aos critérios estabelecidos em contratos e políticas internas. <strong> Prazo de resposta de até 15 dias úteis</strong>, podendo ser prorrogado.</label>
                     </div>
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="termos_lgpd" required>
+                        <input type="checkbox" class="form-check-input" id="termos_lgpd" name="termos_lgpd" required>
                         <label class="form-check-label" for="termos_lgpd">Em observância à Lei n°. 13.709/18 - Lei Geral de Proteção de Dados Pessoais e seus dispositivos aplicáveis, manifesto de forma expressa, livre e consciente, no sentido de autorizar o SESC/DR/RR a realizar o tratamento dos meus dados pessoais, estando ciente do compromisso assumido pelo SESC/DR/RR de tratar os Dados Pessoais de forma sigilosa e confidencial, mantendo-os em ambiente seguro e não utilizando-os para qualquer fim que não seja a minha solicitação.</label>
                     </div>
                     <!-- Captcha -->
@@ -88,7 +91,7 @@
                 formasPagamentoDiv.innerHTML = '';
     
                 // Adicione lógica para mostrar campos adicionais com base na seleção de serviço
-                if (servicoSelecionado === 'assistencia' || servicoSelecionado === 'cultura') {
+                if (servicoSelecionado === 'assistencia' || servicoSelecionado === 'cultura' || servicoSelecionado === 'educacao' || servicoSelecionado === 'saude' || servicoSelecionado === 'esporte') {
                     // Exibir campos adicionais para Assistência/TSI ou Cultura
                     detalhesServicoDiv.innerHTML = `
                         <div class="mb-3">
@@ -100,7 +103,7 @@
                             <textarea class="form-control" id="motivo" name="motivo" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="titular-ou-dependente" class="form-label">A solicitação de reembolso é para o: titular ou dependente</label>
+                            <label for="titular-ou-dependente" class="form-label">A solicitação de reembolso é para o <strong>Titular ou Dependente</strong>?</label>
                             <select class="form-select" id="titular-ou-dependente">
                                 <option selected disabled>Selecione uma opção</option>
                                 <option value="titular">Titular</option>
@@ -116,7 +119,7 @@
                     detalhesServicoDiv.innerHTML = `
                         <div class="mb-3">
                             <label for="numero-reserva" class="form-label">Nº da Reserva</label>
-                            <input type="text" class="form-control" id="numero-reserva" name="numero-reserva" required>
+                            <input type="number" class="form-control" id="numero-reserva" name="numero-reserva" required>
                         </div>
                         <div class="mb-3">
                             <label for="motivo-turismo" class="form-label">Motivo da solicitação de Reembolso?</label>
@@ -138,7 +141,7 @@
                 formasPagamentoDiv.innerHTML = `
                     <hr>
                     <div class="mb-3">
-                        <label for="forma-pagamento" class="form-label">Forma de Reembolso</label>
+                        <h6 class="card-subtitle mb-2 text-danger">Forma de Reembolso</h6>
                         <select class="form-select" id="forma-pagamento" name="forma-pagamento" required>
                             <option value="">Selecione a forma de reembolso</option>
                             <option value="credencial">Reembolso em Credencial</option>

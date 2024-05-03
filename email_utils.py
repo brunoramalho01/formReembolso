@@ -29,5 +29,5 @@ def send_email(nome, protocolo, remetente, form_data):  # Adicione form_data com
 
     # Envio do e-mail
     text = msg.as_string()
-    server.sendmail(EMAIL_USER, ['naoresponder@sescrr.com.br', remetente], text)  # Adiciona o remetente na lista de destinatários
+    server.sendmail(EMAIL_USER, ['crc@sescrr.com.br', remetente], text)  # Adiciona o remetente na lista de destinatários
     server.quit()
