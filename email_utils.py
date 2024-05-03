@@ -17,7 +17,7 @@ def send_email(nome, protocolo, remetente, form_data):  # Adicione form_data com
     msg['From'] = EMAIL_USER
     msg['To'] = 'crc@sescrr.com.br'  # Email do destinatário
     msg['Cc'] = remetente  # Cópia para o remetente
-    msg['Subject'] = 'Nova Solicitação de ' + nome + ' | Protocolo Nº: ' + protocolo
+    msg['Subject'] = 'Solicitação Reembolso de ' + nome + ' | Protocolo Nº: ' + protocolo
 
     # Anexa o corpo do e-mail à mensagem
     msg.attach(MIMEText(body, 'html'))
