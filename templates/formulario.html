@@ -18,7 +18,7 @@
                 <h5 class="card-title ">Formulário de Reembolso</h5>
             </div>
             <div class="card-body">
-                <form action="/" id="form-reembolso" method="POST">
+                <form action="/" id="form-reembolso" method="POST" enctype="multipart/form-data">
                     <!-- Dados Pessoais -->
                     <h6 class="card-subtitle mb-2 text-danger">Dados Pessoais</h6>
                     <div class="mb-3">
@@ -150,54 +150,60 @@
             });
     
             // Função para adicionar listbox com as opções de pagamento
-            function adicionarListboxFormasPagamento() {
-                formasPagamentoDiv.innerHTML = `
-                    <hr>
-                    <div class="mb-3">
-                        <h6 class="card-subtitle mb-2 text-danger">Forma de Reembolso</h6>
-                        <select class="form-select" id="forma-pagamento" name="forma-pagamento"  required>
-                            <option disabled value="" selected >Selecione a forma de reembolso</option>
-                            <option value="credencial">Reembolso em Credencial</option>
-                            <option value="conta-bancaria">Conta Bancária</option>
-                        </select>
-                    </div>
-                `;
-    
-                const formaPagamentoSelect = document.getElementById('forma-pagamento');
-                formaPagamentoSelect.addEventListener('change', function() {
-                    const formaSelecionada = formaPagamentoSelect.value;
-    
-                    // Adicione lógica para mostrar campos adicionais com base na forma de pagamento selecionada
-                    if (formaSelecionada === 'credencial') {
-                        // Exibir campos adicionais para Reembolso em Credencial
-                        formasPagamentoDiv.innerHTML += `
-                            <div class="mb-3">
-                                <label for="numero-credencial" class="form-label">Número da Credencial</label>
-                                <input type="text" class="form-control" id="numero-credencial" name="numero-credencial" required>
-                            </div>
-                        `;
-                    } else if (formaSelecionada === 'conta-bancaria') {
-                        // Exibir campos adicionais para Conta Bancária
-                        formasPagamentoDiv.innerHTML += `
-                            <div class="mb-3">
-                                <label for="nome-banco" class="form-label">Nome do Banco</label>
-                                <input type="text" class="form-control" id="nome-banco" name="nome-banco" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="agencia" class="form-label">Número da Agência</label>
-                                <input type="text" class="form-control" id="agencia" name="agencia" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="conta-corrente" class="form-label">Número da Conta Corrente</label>
-                                <input type="text" class="form-control" id="conta-corrente" name="conta-corrente" required>
-                            </div>
-                        `;
-                    }
-                });
-            }
+function adicionarListboxFormasPagamento() {
+    formasPagamentoDiv.innerHTML = `
+        <hr>
+        <div class="mb-3">
+            <h6 class="card-subtitle mb-2 text-danger">Forma de Reembolso</h6>
+            <select class="form-select" id="forma-pagamento" name="forma-pagamento"  required>
+                <option disabled value="" selected >Selecione a forma de reembolso</option>
+                <option value="credencial">Reembolso em Credencial</option>
+                <option value="conta-bancaria">Conta Bancária</option>
+            </select>
+        </div>
+        <div id="campos-adicionais-forma-pagamento"></div> <!-- Novo div para campos adicionais -->
+    `;
 
-            // Chamar a função para adicionar campos de pagamento quando a página é carregada
-            adicionarListboxFormasPagamento();
+    const formaPagamentoSelect = document.getElementById('forma-pagamento');
+    const camposAdicionaisDiv = document.getElementById('campos-adicionais-forma-pagamento'); // Novo div para campos adicionais
+
+    formaPagamentoSelect.addEventListener('change', function() {
+        const formaSelecionada = formaPagamentoSelect.value;
+
+        // Limpa os campos adicionais antes de adicionar novos
+        camposAdicionaisDiv.innerHTML = '';
+
+        // Adicione lógica para mostrar campos adicionais com base na forma de pagamento selecionada
+        if (formaSelecionada === 'credencial') {
+            // Exibir campos adicionais para Reembolso em Credencial
+            camposAdicionaisDiv.innerHTML = `
+                <div class="mb-3">
+                    <label for="numero-credencial" class="form-label">Número da Credencial</label> <sub style="color:red;"> (Apenas Números)</sub>
+                    <input type="number" class="form-control" id="numero-credencial" name="numero-credencial" required>
+                </div>
+            `;
+        } else if (formaSelecionada === 'conta-bancaria') {
+            // Exibir campos adicionais para Conta Bancária
+            camposAdicionaisDiv.innerHTML = `
+                <div class="mb-3">
+                    <label for="nome-banco" class="form-label">Banco</label><sub style="color:red;"> (Nome do Banco ou Código Identificador)</sub>
+                    <input type="text" class="form-control" id="nome-banco" name="nome-banco" required>
+                </div>
+                <div class="mb-3">
+                    <label for="agencia" class="form-label">Número da Agência</label> <sub style="color:red;"> (Apenas Números)</sub>
+                    <input type="number" class="form-control" id="agencia" name="agencia" required>
+                </div>
+                <div class="mb-3">
+                    <label for="conta-corrente" class="form-label">Número da Conta Corrente</label> <sub style="color:red;"> (Apenas Números)</sub>
+                    <input type="number" class="form-control" id="conta-corrente" name="conta-corrente" required>
+                </div>
+            `;
+        }
+    });
+}
+
+    // Chamar a função para adicionar campos de pagamento quando a página é carregada
+    adicionarListboxFormasPagamento();
         });
     </script>
     <!--Mascara de Preenchimento dos Campos de CPF e Telefone-->

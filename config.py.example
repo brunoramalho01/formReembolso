@@ -1,4 +1,4 @@
-# Configurações de Servidor SMTP do Outlook com autenticações do SESC RR
+# Configurações de Servidor SMTP do Outlook com autenticações do Usuario
 
 EMAIL_HOST = #endereço server SMTP
 EMAIL_PORT = #numero da porta

@@ -4,25 +4,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitação de Reembolso</title>
+
+    <style>
+        body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+            .container {
+                max-width: 600px;
+                margin: 20px auto;
+                background: #fff;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            .header {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px 20px;
+                text-align: center;
+            }
+            .logo {
+                text-align: center;
+                padding: 20px;
+            }
+            .logo img {
+                max-width: 100%;
+            }
+            .content {
+                padding: 20px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            table, th, td {
+                border: 1px solid #ddd;
+            }
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+            th {
+                background-color: #f4f4f4;
+            }
+    </style>
+
 </head>
 <body>
     <div class="container">
-        <div class="card mt-3">
-            <div class="card-header">
-                <h5 class="card-title">Solicitação Recebida</h5>
-            </div>
-            <div class="card-body">
-                <p class="card-text">Sua solicitação foi recebida com sucesso. Abaixo estão os detalhes:</p>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Número de Protocolo: {{ protocolo }}</li>
-                    <!-- Adicione aqui os campos adicionais do formulário -->
-                    {% for key, value in form_data.items() %}
-                        <li class="list-group-item">{{ key.capitalize() }}: {{ value }}</li>
-                    {% endfor %}
-                </ul>
-                <p class="card-text">Entraremos em contato em breve.</p>
-                <p class="card-text">Atenciosamente,<br>Sua Empresa</p>
-            </div>
+        <div class="header">
+            <h1>Solicitação de Reembolso</h1>
+        </div>
+        <div class="logo">
+            <img alt="" src="data:image/png;base64,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
+mcgAAAAASUVORK5CYII=">
+        </div>
+        <div class="content">
+            <table>
+                <tr>
+                    <th>Número de Protocolo</th>
+                    <td><strong>{{ protocolo }}</strong></td>
+                </tr>
+                <!-- Adicione aqui os campos adicionais do formulário -->
+                {% for key, value in form_data.items() %}
+                <tr>
+                    <th>{{ key.capitalize() }}</th>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <p>Entraremos em contato em breve.</p>
+            <p>Atenciosamente,<br>SESC/DR/RR - Serviço Social do Comércio</p>
         </div>
     </div>
 </body>
