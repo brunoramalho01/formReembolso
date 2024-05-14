@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Reembolso</title>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <!--CDN Script Input Mask-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-masker@1.2.0/build/vanilla-masker.min.js"></script>
-
+    <style>
+        body {
+            font-family: 'Ubuntu', sans-serif;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -18,38 +23,48 @@
                 <h5 class="card-title ">Formulário de Reembolso</h5>
             </div>
             <div class="card-body">
+                <div>
+                    <strong style="color: #e23a08;"><sub class="card-text"> Orientações:</sub><br>
+                    <sub class="card-text">- O formulário deve ser preenchido pelo Titular do cadastro. Em caso de reserva, pelo Titular da reserva.</sub><br>
+                    <sub class="card-text">- O reembolso em conta bancária, será realizado apenas na conta bancária do titular ou responsável pela reserva.</sub></strong>
+                </div>
+                <hr>
                 <form action="/" id="form-reembolso" method="POST" enctype="multipart/form-data">
                     <!-- Dados Pessoais -->
-                    <h6 class="card-subtitle mb-2 text-danger">Dados Pessoais</h6>
+                    <h6 class="card-subtitle mb-2 text-primary">Dados Pessoais</h6>
                     <div class="mb-3">
-                        <label for="nome" class="form-label">Nome</label>
+                        <label for="nome" class="form-label">Nome do titular do cadastro/titular da reserva:
+                        </label>
                         <input type="text" class="form-control" id="nome" name="nome" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">Email do titular do cadastro/titular da reserva:
+                        </label>
                         <input type="text" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="cpf" class="form-label">CPF</label>
+                        <label for="cpf" class="form-label">CPF do titular do cadastro/titular da reserva:
+                        </label>
                         <input type="text" class="form-control" id="cpf" name="cpf" required>
                     </div>
                     <div class="mb-3">
-                        <label for="telefone" class="form-label">Telefone</label>
+                        <label for="telefone" class="form-label">Telefone do titular do cadastro/titular da reserva:</label>
                         <input type="text" class="form-control" id="telefone" name="telefone" required>
                     </div>
                     <!-- Adicione Mais campos de dados pessoais e Mapeia caso preciso-->
     
                     <!-- Seleção de Serviço -->
                     <hr>
-                    <h6 class="card-subtitle mb-2 text-danger">Seleção de Serviço</h6>
+                    <h6 class="card-subtitle mb-2 text-primary">Seleção de Serviço</h6>
                     <div class="mb-3">
                         <label for="servico" class="form-label">Serviço</label>
                         <select class="form-select" id="servico" name="servico" required>
                             <option value="">Selecione o serviço</option>
-                            <option value="assistencia">Assistência/TSI</option>
+                            <option value="assistencia">Assistência Social/TSI</option>
                             <option value="cultura">Cultura</option>
                             <option value="educacao">Educação</option>
-                            <option value="esporte">Esporte e Lazer</option>
+                            <option value="esporte">Esportes</option>
+                            <option value="nutricao">Nutrição</option>
                             <option value="saude">Saúde</option>
                             <option value="turismo">Turismo</option>
                             <!-- Adicione mais opções de serviço aqui se for preciso -->
@@ -62,7 +77,7 @@
     
                     <!-- Termos de Aceite -->
                     <hr>
-                    <h6 class="card-subtitle mb-2 text-danger">Termos de Aceite</h6>
+                    <h6 class="card-subtitle mb-2 text-primary">Termos de Aceite</h6>
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="termos_reembolso" name="termos_reembolso" required>
                         <label class="form-check-label" for="termos_reembolso">Estou ciente que as solicitações de Reembolso enviados através deste link passarão por análise e que sua aprovação está condicionada aos critérios estabelecidos em contratos e políticas internas. <strong> Prazo de resposta de até 15 dias úteis</strong>, podendo ser prorrogado.</label>
@@ -104,7 +119,7 @@
                 formasPagamentoDiv.innerHTML = '';
     
                 // Adicione lógica para mostrar campos adicionais com base na seleção de serviço
-                if (servicoSelecionado === 'assistencia' || servicoSelecionado === 'cultura' || servicoSelecionado === 'educacao' || servicoSelecionado === 'saude' || servicoSelecionado === 'esporte') {
+                if (servicoSelecionado === 'assistencia' || servicoSelecionado === 'cultura' || servicoSelecionado === 'educacao' || servicoSelecionado === 'saude' || servicoSelecionado === 'esporte' || servicoSelecionado === 'nutricao') {
                     // Exibir campos adicionais para Assistência/TSI ou Cultura
                     detalhesServicoDiv.innerHTML = `
                         <div class="mb-3">
@@ -154,7 +169,7 @@ function adicionarListboxFormasPagamento() {
     formasPagamentoDiv.innerHTML = `
         <hr>
         <div class="mb-3">
-            <h6 class="card-subtitle mb-2 text-danger">Forma de Reembolso</h6>
+            <h6 class="card-subtitle mb-2 text-primary">Forma de Reembolso</h6>
             <select class="form-select" id="forma-pagamento" name="forma-pagamento"  required>
                 <option disabled value="" selected >Selecione a forma de reembolso</option>
                 <option value="credencial">Reembolso em Credencial</option>
@@ -179,23 +194,23 @@ function adicionarListboxFormasPagamento() {
             camposAdicionaisDiv.innerHTML = `
                 <div class="mb-3">
                     <label for="numero-credencial" class="form-label">Número da Credencial</label> <sub style="color:red;"> (Apenas Números)</sub>
-                    <input type="number" class="form-control" id="numero-credencial" name="numero-credencial" required>
+                    <input type="text" class="form-control" id="numero-credencial" name="numero-credencial" required>
                 </div>
             `;
         } else if (formaSelecionada === 'conta-bancaria') {
             // Exibir campos adicionais para Conta Bancária
             camposAdicionaisDiv.innerHTML = `
                 <div class="mb-3">
-                    <label for="nome-banco" class="form-label">Banco</label><sub style="color:red;"> (Nome do Banco ou Código Identificador)</sub>
+                    <label for="nome-banco" class="form-label">Banco</label><sub style="color:red;"> (Conta em nome do titular da solicitação)</sub>
                     <input type="text" class="form-control" id="nome-banco" name="nome-banco" required>
                 </div>
                 <div class="mb-3">
-                    <label for="agencia" class="form-label">Número da Agência</label> <sub style="color:red;"> (Apenas Números)</sub>
-                    <input type="number" class="form-control" id="agencia" name="agencia" required>
+                    <label for="agencia" class="form-label">Número da Agência</label> <sub style="color:red;"></sub>
+                    <input type="text" class="form-control" id="agencia" name="agencia" required>
                 </div>
                 <div class="mb-3">
-                    <label for="conta-corrente" class="form-label">Número da Conta Corrente</label> <sub style="color:red;"> (Apenas Números)</sub>
-                    <input type="number" class="form-control" id="conta-corrente" name="conta-corrente" required>
+                    <label for="conta-corrente" class="form-label">Número da Conta Corrente</label> <sub style="color:red;"></sub>
+                    <input type="text" class="form-control" id="conta-corrente" name="conta-corrente" required>
                 </div>
             `;
         }
