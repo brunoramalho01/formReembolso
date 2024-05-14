@@ -26,7 +26,7 @@
                 <div>
                     <strong style="color: #e23a09;"><sub class="card-text"> Orientações:</sub><br>
                     <sub class="card-text">- O formulário deve ser preenchido pelo Titular do cadastro. Em caso de reserva, pelo Titular da reserva.</sub><br>
-                    <sub class="card-text">- O reembolso em conta bancária, será realizado apenas na conta bancária do titular ou responsável pela reserva.</sub></strong>
+                    <sub class="card-text">- O reembolso em conta bancária será realizado apenas na conta bancária do titular ou responsável pela reserva.</sub></strong>
                 </div>
                 <hr>
                 <form action="/" id="form-reembolso" method="POST" enctype="multipart/form-data">
@@ -60,7 +60,7 @@
                         <label for="servico" class="form-label">Serviço</label>
                         <select class="form-select" id="servico" name="servico" required>
                             <option value="">Selecione o serviço</option>
-                            <option value="assistencia">Assistência Social/TSI</option>
+                            <option value="assistencia">Assistência/TSI</option>
                             <option value="cultura">Cultura</option>
                             <option value="educacao">Educação</option>
                             <option value="esporte">Esportes</option>
@@ -142,7 +142,7 @@
     
                     // Adicionar listbox com as opções de pagamento
                     adicionarListboxFormasPagamento();
-                } else if (servicoSelecionado === 'turismo') {
+                }  if (servicoSelecionado === 'turismo') {
                     // Exibir campos adicionais para Turismo
                     detalhesServicoDiv.innerHTML = `
                         <div class="mb-3">
@@ -160,24 +160,27 @@
                     `;
     
                     // Adicionar listbox com as opções de pagamento
-                    adicionarListboxFormasPagamento();
+                    adicionarListboxFormasPagamento(true);
+                } else {
+
+                    adicionarListboxFormasPagamento(false);
                 }
             });
     
             // Função para adicionar listbox com as opções de pagamento
-function adicionarListboxFormasPagamento() {
-    formasPagamentoDiv.innerHTML = `
-        <hr>
-        <div class="mb-3">
+function adicionarListboxFormasPagamento(incluirCartaCredito) {
+        formasPagamentoDiv.innerHTML = `
+            <hr>
             <h6 class="card-subtitle mb-2 text-primary">Forma de Reembolso</h6>
-            <select class="form-select" id="forma-pagamento" name="forma-pagamento"  required>
-                <option disabled value="" selected >Selecione a forma de reembolso</option>
+            <select class="form-select" id="forma-pagamento" name="forma-pagamento" required>
+                <option disabled value="" selected>Selecione a forma de reembolso</option>
                 <option value="credencial">Reembolso em Credencial</option>
                 <option value="conta-bancaria">Conta Bancária</option>
+                ${incluirCartaCredito ? '<option value="carta-credito">Carta de Crédito</option>' : '' /*Condicionamento para habilitar forma de pagamento carta de credito turismo*/} 
             </select>
         </div>
         <div id="campos-adicionais-forma-pagamento"></div> <!-- Novo div para campos adicionais -->
-    `;
+        `;
 
     const formaPagamentoSelect = document.getElementById('forma-pagamento');
     const camposAdicionaisDiv = document.getElementById('campos-adicionais-forma-pagamento'); // Novo div para campos adicionais
@@ -218,7 +221,7 @@ function adicionarListboxFormasPagamento() {
 }
 
     // Chamar a função para adicionar campos de pagamento quando a página é carregada
-    adicionarListboxFormasPagamento();
+    adicionarListboxFormasPagamento(false);
         });
     </script>
     <!--Mascara de Preenchimento dos Campos de CPF e Telefone-->
