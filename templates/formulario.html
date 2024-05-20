@@ -4,55 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Reembolso</title>
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://www.google.com/recaptcha/api.js"></script>
-    <!--CDN Script Input Mask-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-masker@1.2.0/build/vanilla-masker.min.js"></script>
-    <style>
-        body {
-            font-family: 'Ubuntu', sans-serif;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://unpkg.com/vanilla-masker/build/vanilla-masker.min.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="card mt-3 shadow">
             <div class="card-header bg-primary text-white text-center">
-                <h5 class="card-title ">Formulário de Reembolso</h5>
+                <h5 class="card-title">Formulário de Reembolso</h5>
             </div>
             <div class="card-body">
                 <div>
-                    <strong style="color: #e23a09;"><sub class="card-text"> Orientações:</sub><br>
-                    <sub class="card-text">- O formulário deve ser preenchido pelo Titular do cadastro. Em caso de reserva, pelo Titular da reserva.</sub><br>
-                    <sub class="card-text">- O reembolso em conta bancária será realizado apenas na conta bancária do titular ou responsável pela reserva.</sub></strong>
+                    <strong style="color: #e23a09;">
+                        <sub class="card-text"> Orientações:</sub><br>
+                        <sub class="card-text">- O formulário deve ser preenchido pelo Titular do cadastro. Em caso de reserva, pelo Titular da reserva.</sub><br>
+                        <sub class="card-text">- O reembolso em conta bancária será realizado apenas na conta bancária do titular ou responsável pela reserva.</sub>
+                    </strong>
                 </div>
                 <hr>
                 <form action="/" id="form-reembolso" method="POST" enctype="multipart/form-data">
                     <!-- Dados Pessoais -->
                     <h6 class="card-subtitle mb-2 text-primary">Dados Pessoais</h6>
                     <div class="mb-3">
-                        <label for="nome" class="form-label">Nome do titular do cadastro/titular da reserva:
-                        </label>
+                        <label for="nome" class="form-label">Nome do titular do cadastro/titular da reserva:</label>
                         <input type="text" class="form-control" id="nome" name="nome" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email do titular do cadastro/titular da reserva:
-                        </label>
+                        <label for="email" class="form-label">Email do titular do cadastro/titular da reserva:</label>
                         <input type="text" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="cpf" class="form-label">CPF do titular do cadastro/titular da reserva:
-                        </label>
+                        <label for="cpf" class="form-label">CPF do titular do cadastro/titular da reserva:</label>
                         <input type="text" class="form-control" id="cpf" name="cpf" required>
                     </div>
                     <div class="mb-3">
-                        <label for="telefone" class="form-label">Telefone do titular do cadastro/titular da reserva:</label>
+                        <label for="telefone" class="form-label">Telefone do titular do cadastro/titular da reserva:</label>
                         <input type="text" class="form-control" id="telefone" name="telefone" required>
                     </div>
-                    <!-- Adicione Mais campos de dados pessoais e Mapeia caso preciso-->
-    
                     <!-- Seleção de Serviço -->
                     <hr>
                     <h6 class="card-subtitle mb-2 text-primary">Seleção de Serviço</h6>
@@ -70,11 +58,36 @@
                             <!-- Adicione mais opções de serviço aqui se for preciso -->
                         </select>
                     </div>
-    
+
                     <!-- Campos adicionais com base na seleção de serviço -->
                     <div id="detalhes-servico"></div>
+
+                    <div class="mb-3">
+                        <label for="titular-ou-dependente" class="form-label">A solicitação de reembolso é para o <strong>Titular ou Dependente</strong>?</label>
+                        <select class="form-select" id="titular-ou-dependente" name="titular-ou-dependente">
+                            <option selected disabled>Selecione uma opção</option>
+                            <option value="titular">Titular</option>
+                            <option value="dependente">Dependente</option>
+                        </select>
+                    </div>
+                    <div id="campos-dependente" style="display: none;">
+                        <div class="mb-3">
+                            <label for="nome-dependente" class="form-label">Nome do Dependente</label>
+                            <input type="text" class="form-control" id="nome-dependente" name="nome-dependente" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numero-credencial-dependente" class="form-label">Nº da Credencial Sesc</label>
+                            <input type="text" class="form-control" id="numero-credencial-dependente" name="numero-credencial-dependente" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cpf-dependente" class="form-label">CPF do Dependente</label>
+                            <input type="text" class="form-control" id="cpf-dependente" name="cpf-dependente" required>
+                        </div>
+                    </div>
+
+                    <!-- Formas de Pagamento -->
                     <div id="formas-pagamento"></div>
-    
+
                     <!-- Termos de Aceite -->
                     <hr>
                     <h6 class="card-subtitle mb-2 text-primary">Termos de Aceite</h6>
@@ -86,13 +99,14 @@
                         <input type="checkbox" class="form-check-input" id="termos_lgpd" name="termos_lgpd" required>
                         <label class="form-check-label" for="termos_lgpd">Em observância à Lei n°. 13.709/18 - Lei Geral de Proteção de Dados Pessoais e seus dispositivos aplicáveis, manifesto de forma expressa, livre e consciente, no sentido de autorizar o SESC/DR/RR a realizar o tratamento dos meus dados pessoais, estando ciente do compromisso assumido pelo SESC/DR/RR de tratar os Dados Pessoais de forma sigilosa e confidencial, mantendo-os em ambiente seguro e não utilizando-os para qualquer fim que não seja a minha solicitação.</label>
                     </div>
-                     <!-- Captcha -->
+                    <!-- Captcha -->
                     <div class="mb-3">
                         <button class="g-recaptcha btn btn-primary" 
                         data-sitekey="6Lc84s8pAAAAAFVUu1NkW3GhfLPcpsQLrERuW6es" 
                         data-callback='onSubmit' 
                         data-action='submit'>Enviar</button>
                     </div>
+                    
                 </form>
             </div>
         </div>
@@ -102,22 +116,94 @@
         function onSubmit(token) {
             document.getElementById("form-reembolso").submit();
         }
-    </script>
-
-    <!-- JavaScript (opcional, para interações dinâmicas) -->
-    <script>
+    
         document.addEventListener('DOMContentLoaded', function() {
             const servicoSelect = document.getElementById('servico');
             const detalhesServicoDiv = document.getElementById('detalhes-servico');
             const formasPagamentoDiv = document.getElementById('formas-pagamento');
+            const titularOuDependenteSelect = document.getElementById('titular-ou-dependente');
+            const camposDependenteDiv = document.getElementById('campos-dependente');
+            const titularOuDependenteContainer = titularOuDependenteSelect.parentElement;
     
+            // Função para controlar a visibilidade do campo "Titular ou Dependente"
+            function atualizarVisibilidadeTitularOuDependente() {
+                const servicoSelecionado = servicoSelect.value;
+                if (['assistencia', 'cultura', 'educacao', 'esporte', 'nutricao', 'saude'].includes(servicoSelecionado)) {
+                    titularOuDependenteContainer.style.display = 'block';
+                } else {
+                    titularOuDependenteContainer.style.display = 'none';
+                }
+            }
+
+            atualizarVisibilidadeTitularOuDependente();
+
+            // Função para adicionar Carta de Crédito na listbox com as opções de pagamento
+            function adicionarListboxFormasPagamento(incluirCartaCredito) {
+                formasPagamentoDiv.innerHTML = `
+                    <hr>
+                    <h6 class="card-subtitle mb-2 text-primary">Forma de Reembolso</h6>
+                    <select class="form-select" id="forma-pagamento" name="forma-pagamento" required>
+                        <option disabled value="" selected>Selecione a forma de reembolso</option>
+                        <option value="credencial">Reembolso em Credencial</option>
+                        <option value="conta-bancaria">Conta Bancária</option>
+                        ${incluirCartaCredito ? '<option value="carta-credito">Carta de Crédito</option>' : ''}
+                    </select>
+                    <div id="campos-adicionais-forma-pagamento"></div>
+                `;
+
+                const formaPagamentoSelect = document.getElementById('forma-pagamento');
+                const camposAdicionaisDiv = document.getElementById('campos-adicionais-forma-pagamento'); // Novo div para campos adicionais
+
+                formaPagamentoSelect.addEventListener('change', function() {
+                    const formaSelecionada = formaPagamentoSelect.value;
+
+                    // Limpa os campos adicionais antes de adicionar novos
+                    camposAdicionaisDiv.innerHTML = '';
+
+                    // Adicione lógica para mostrar campos adicionais com base na forma de pagamento selecionada
+                    if (formaSelecionada === 'credencial') {
+                        camposAdicionaisDiv.innerHTML = `
+                            <div class="mb-3">
+                                <label for="numero-credencial" class="form-label">Número da Credencial</label> <sub style="color:red;"> (que deseja ser realizado o reembolso)</sub>
+                                <input type="text" class="form-control" id="numero-credencial" name="numero-credencial" required>
+                            </div>
+                        `;
+                    } else if (formaSelecionada === 'conta-bancaria') {
+                        camposAdicionaisDiv.innerHTML = `
+                            <div class="mb-3">
+                                <label for="nome-banco" class="form-label">Banco</label><sub style="color:red;"> (Conta em nome do titular da solicitação)</sub>
+                                <input type="text" class="form-control" id="nome-banco" name="nome-banco" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="agencia" class="form-label">Número da Agência</label> <sub style="color:red;"></sub>
+                                <input type="text" class="form-control" id="agencia" name="agencia" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="conta-corrente" class="form-label">Número da Conta Corrente</label> <sub style="color:red;"></sub>
+                                <input type="text" class="form-control" id="conta-corrente" name="conta-corrente" required>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            // Event listener para mostrar campos adicionais quando "Dependente" for selecionado
+            titularOuDependenteSelect.addEventListener('change', function() {
+                if (this.value === 'dependente') {
+                    camposDependenteDiv.style.display = 'block';
+                } else {
+                    camposDependenteDiv.style.display = 'none';
+                }
+            });
+
+            // Chama a função para atualizar a visibilidade quando a página é carregada
             servicoSelect.addEventListener('change', function() {
                 const servicoSelecionado = servicoSelect.value;
-    
+
                 // Limpa os campos de detalhes do serviço e de formas de pagamento antes de adicionar novos campos
                 detalhesServicoDiv.innerHTML = '';
                 formasPagamentoDiv.innerHTML = '';
-    
+
                 // Adicione lógica para mostrar campos adicionais com base na seleção de serviço
                 if (servicoSelecionado === 'assistencia' || servicoSelecionado === 'cultura' || servicoSelecionado === 'educacao' || servicoSelecionado === 'saude' || servicoSelecionado === 'esporte' || servicoSelecionado === 'nutricao') {
                     // Exibir campos adicionais para Assistência/TSI ou Cultura
@@ -130,19 +216,11 @@
                             <label for="motivo" class="form-label">Motivo da solicitação de Reembolso?</label>
                             <textarea class="form-control" id="motivo" name="motivo" required></textarea>
                         </div>
-                        <div class="mb-3">
-                            <label for="titular-ou-dependente" class="form-label">A solicitação de reembolso é para o <strong>Titular ou Dependente</strong>?</label>
-                            <select class="form-select" id="titular-ou-dependente">
-                                <option selected disabled>Selecione uma opção</option>
-                                <option value="titular">Titular</option>
-                                <option value="dependente">Dependente</option>
-                            </select>
-                        </div>
                     `;
-    
+
                     // Adicionar listbox com as opções de pagamento
                     adicionarListboxFormasPagamento();
-                }  if (servicoSelecionado === 'turismo') {
+                } else if (servicoSelecionado === 'turismo') {
                     // Exibir campos adicionais para Turismo
                     detalhesServicoDiv.innerHTML = `
                         <div class="mb-3">
@@ -158,80 +236,21 @@
                             <input type="file" class="form-control" id="upload-comprovante" name="upload-comprovante" accept=".pdf,.jpg,.png" required>
                         </div>
                     `;
-    
                     // Adicionar listbox com as opções de pagamento
                     adicionarListboxFormasPagamento(true);
                 } else {
-
                     adicionarListboxFormasPagamento(false);
                 }
+                atualizarVisibilidadeTitularOuDependente();
             });
-    
-            // Função para adicionar listbox com as opções de pagamento
-function adicionarListboxFormasPagamento(incluirCartaCredito) {
-        formasPagamentoDiv.innerHTML = `
-            <hr>
-            <h6 class="card-subtitle mb-2 text-primary">Forma de Reembolso</h6>
-            <select class="form-select" id="forma-pagamento" name="forma-pagamento" required>
-                <option disabled value="" selected>Selecione a forma de reembolso</option>
-                <option value="credencial">Reembolso em Credencial</option>
-                <option value="conta-bancaria">Conta Bancária</option>
-                ${incluirCartaCredito ? '<option value="carta-credito">Carta de Crédito</option>' : '' /*Condicionamento para habilitar forma de pagamento carta de credito turismo*/} 
-            </select>
-        </div>
-        <div id="campos-adicionais-forma-pagamento"></div> <!-- Novo div para campos adicionais -->
-        `;
+            
+            // Chamar a função para adicionar campos de pagamento quando a página é carregada
+            adicionarListboxFormasPagamento(false);
 
-    const formaPagamentoSelect = document.getElementById('forma-pagamento');
-    const camposAdicionaisDiv = document.getElementById('campos-adicionais-forma-pagamento'); // Novo div para campos adicionais
-
-    formaPagamentoSelect.addEventListener('change', function() {
-        const formaSelecionada = formaPagamentoSelect.value;
-
-        // Limpa os campos adicionais antes de adicionar novos
-        camposAdicionaisDiv.innerHTML = '';
-
-        // Adicione lógica para mostrar campos adicionais com base na forma de pagamento selecionada
-        if (formaSelecionada === 'credencial') {
-            // Exibir campos adicionais para Reembolso em Credencial
-            camposAdicionaisDiv.innerHTML = `
-                <div class="mb-3">
-                    <label for="numero-credencial" class="form-label">Número da Credencial</label> <sub style="color:red;"> (Apenas Números)</sub>
-                    <input type="text" class="form-control" id="numero-credencial" name="numero-credencial" required>
-                </div>
-            `;
-        } else if (formaSelecionada === 'conta-bancaria') {
-            // Exibir campos adicionais para Conta Bancária
-            camposAdicionaisDiv.innerHTML = `
-                <div class="mb-3">
-                    <label for="nome-banco" class="form-label">Banco</label><sub style="color:red;"> (Conta em nome do titular da solicitação)</sub>
-                    <input type="text" class="form-control" id="nome-banco" name="nome-banco" required>
-                </div>
-                <div class="mb-3">
-                    <label for="agencia" class="form-label">Número da Agência</label> <sub style="color:red;"></sub>
-                    <input type="text" class="form-control" id="agencia" name="agencia" required>
-                </div>
-                <div class="mb-3">
-                    <label for="conta-corrente" class="form-label">Número da Conta Corrente</label> <sub style="color:red;"></sub>
-                    <input type="text" class="form-control" id="conta-corrente" name="conta-corrente" required>
-                </div>
-            `;
-        }
-    });
-}
-
-    // Chamar a função para adicionar campos de pagamento quando a página é carregada
-    adicionarListboxFormasPagamento(false);
-        });
-    </script>
-    <!--Mascara de Preenchimento dos Campos de CPF e Telefone-->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Aplica máscara de CPF
+            // Aplica máscara de CPF e Telefone
             VMasker(document.getElementById('cpf')).maskPattern('999.999.999-99');
-
-            // Aplica máscara de Telefone
             VMasker(document.getElementById('telefone')).maskPattern('(99) 99999-9999');
         });
-    </script>   
+    </script>
 </body>
+</html>
